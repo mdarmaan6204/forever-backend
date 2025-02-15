@@ -1,17 +1,15 @@
-import {v2 as coudinary } from 'cloudinary';
+import { v2 as cloudinary } from "cloudinary";
 
 const connectCloudinary = async () => {
-
-    try{
-        await coudinary.config({
-            cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-            api_key: process.env.CLOUDINARY_API_KEY,
-            api_secret: process.env.CLOUDINARY_API_SECRET
-        })
-    }
-    catch(error){
-        console.log(error);
-    }
-}
+  try {
+    const conn = await cloudinary.config({
+      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+      api_key: process.env.CLOUDINARY_API_KEY,
+      api_secret: process.env.CLOUDINARY_API_SECRET,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export default connectCloudinary;
