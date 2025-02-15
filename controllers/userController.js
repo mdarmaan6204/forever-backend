@@ -100,6 +100,22 @@ const registerUser = async (req, res) => {
 
 const adminLogin = async (req, res) => {
   try {
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.json({ message: "Please enter all fields" });
+    }
+
+    if (
+      email !== process.env.ADMIN_EMAIL ||
+      password !== process.env.ADMIN_PASSWORD
+    ) {
+      return res.status(400).json({ message: "Invalid Credentials" });
+    } else {
+      const token = jwt.sign(email + password, process.env.JWT_SECRET);
+
+      res.json({ success: true, message: "Admin Logged In", token });
+    }
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Server Error" });
