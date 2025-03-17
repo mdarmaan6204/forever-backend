@@ -21,7 +21,7 @@ productRouter.post(
   adminAuth,
   addProduct
 );
-productRouter.get("/list",adminAuth, listProduct);
+productRouter.get("/list", listProduct);
 productRouter.get("/single/:id", adminAuth,singleProduct);
 productRouter.delete("/remove/:id",adminAuth, removeProduct);
 
