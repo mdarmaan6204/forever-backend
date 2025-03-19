@@ -22,7 +22,7 @@ orderRouter.post("/placeorder/stripe", authUser, placeOrderStripe);
 orderRouter.post("/placeorder/razorpay", authUser, placeOrderRazorpay);
 
 // User
-orderRouter.post("/myorders", authUser, getUserOrders);
+orderRouter.get("/myorders", authUser, getUserOrders);
 
 
 export default orderRouter;

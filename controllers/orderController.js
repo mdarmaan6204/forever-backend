@@ -1,3 +1,4 @@
+import orderModel from "../models/orderModel.js";
 import Order from "../models/orderModel.js";
 import userModel from "../models/userModel.js";
 
@@ -5,16 +6,17 @@ import userModel from "../models/userModel.js";
 const placeOrder = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
-    if(!userId){
-      return res.status(400).json({ success: false, message: "User not found" });
-    }
-    else if(!items || items.length === 0){
+    if (!userId) {
+      return res
+        .status(400)
+        .json({ success: false, message: "User not found" });
+    } else if (!items || items.length === 0) {
       return res.status(400).json({ success: false, message: "Cart is empty" });
+    } else if (!address) {
+      return res
+        .status(400)
+        .json({ success: false, message: "Address is required" });
     }
-    else if(!address){
-      return res.status(400).json({ success: false, message: "Address is required" });
-    }
-    
 
     const newOrder = new Order({
       userId,
@@ -47,7 +49,18 @@ const placeOrderRazorpay = async (req, res) => {};
 const getAllOrders = async (req, res) => {};
 
 // Get Order data for  a user
-const getUserOrders = async (req, res) => {};
+const getUserOrders = async (req, res) => {
+  try {
+    const { userId } = req.body;
+
+    const orders = await orderModel.find({ userId });
+
+    res.json({ success: true, orders });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
 
 // Update order status from Admin panel
 const updateOrderStatus = async (req, res) => {};
