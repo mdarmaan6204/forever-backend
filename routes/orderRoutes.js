@@ -13,8 +13,8 @@ import {
 const orderRouter = express.Router();
 
 // Admin
-orderRouter.post("/list", adminAuth, getAllOrders);
-orderRouter.post("/status", adminAuth, updateOrderStatus);
+orderRouter.get("/list", adminAuth, getAllOrders);
+orderRouter.patch("/status", adminAuth, updateOrderStatus);
 
 // Payment
 orderRouter.post("/placeorder/cod", authUser, placeOrder);

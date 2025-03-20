@@ -46,7 +46,15 @@ const placeOrderStripe = async (req, res) => {};
 const placeOrderRazorpay = async (req, res) => {};
 
 // Get all order detailes in admin panel
-const getAllOrders = async (req, res) => {};
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, orders });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
 
 // Get Order data for  a user
 const getUserOrders = async (req, res) => {
@@ -63,7 +71,16 @@ const getUserOrders = async (req, res) => {
 };
 
 // Update order status from Admin panel
-const updateOrderStatus = async (req, res) => {};
+const updateOrderStatus = async (req, res) => {
+  try {
+    const { orderId, status } = req.body;
+    await orderModel.findByIdAndUpdate(orderId, { status });
+    res.json({ success: true, message: "Order status updated successfully" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ success: false, message: err.message });
+  }
+};
 
 export {
   placeOrder,
